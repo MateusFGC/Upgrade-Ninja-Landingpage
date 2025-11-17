@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Ninja - Demo Page</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Russo One (Gamer) + Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
+    
+    <!-- Configuração Customizada do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'heading': ['Russo One', 'sans-serif']
+                    },
+                    colors: {
+                        'ninja-blue': {
+                            '400': '#00bfff', // DeepSkyBlue
+                            '600': '#009acd'
+                        },
+                        'ninja-orange': {
+                            '400': '#ff4500', // OrangeRed
+                            '500': '#ff4500',
+                            '600': '#e63e00'
+                        },
+                        'ninja-dark': '#0a0a0a', // Quase preto
+                        'ninja-red': { 
+                            '500': '#dc2626', // red-600
+                            '600': '#b91c1c'  // red-700
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Estilos Globais e Efeitos de Brilho -->
+    <style>
+        body {
+            background-color: #000000;
+            color: #f0f0f0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Russo One', sans-serif;
+        }
+        p, li, span, a, div, button {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Efeitos de brilho (glow) */
+        .text-glow-blue {
+            text-shadow: 0 0 8px #00bfff, 0 0 12px #00bfff;
+        }
+        .text-glow-orange {
+            text-shadow: 0 0 8px #ff4500, 0 0 12px #ff4500;
+        }
+
+        /* --- ESTILOS DOS CARDS --- */
+        
+        /* Classe base para transições suaves em todos os cards */
+        .plan-card {
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efeito de hover para os cards azuis (Básico) */
+        .plan-card-blue:hover {
+            border-color: #00bfff; /* ninja-blue-400 */
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.5); /* Sombra azul */
+            z-index: 20; /* Traz para frente no hover */
+        }
+        
+        /* Efeito de hover para o card laranja (Intermediário) */
+        .plan-card-orange:hover {
+            border-color: #ff4500; /* ninja-orange-400 */
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.5); /* Sombra laranja */
+            z-index: 20;
+        }
+
+        /* Efeito de hover para o card vermelho (Pro) */
+        .plan-card-red:hover {
+            border-color: #dc2626; /* ninja-red-500 */
+            box-shadow: 0 0 25px rgba(220, 38, 38, 0.5); /* Sombra vermelha */
+            z-index: 20;
+        }
+
+        /* Aplica o "zoom" (maior) no hover para os cards azuis em telas de desktop */
+        @media (min-width: 768px) {
+            .plan-card-blue:hover,
+            .plan-card-orange:hover,
+            .plan-card-red:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Estilo do FAQ */
+        .faq-answer {
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .faq-answer.open {
+            max-height: 300px; /* Altura suficiente para a resposta */
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-icon.rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* --- ESTILOS DO HEADER FIXO --- */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.7); /* ninja-dark com 70% opacidade */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgb(55 65 81 / 0.5); /* gray-700 com 50% opacidade */
+            transition: background-color 0.3s ease;
+        }
+        
+        /* --- ESTILOS DO HERO BANNER --- */
+
+        @keyframes kenBurnsZoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05); /* Zoom leve */
+            }
+        }
+
+        .hero-banner {
+            position: relative; 
+            height: 75vh; 
+            min-height: 500px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; 
+            background-color: #0a0a0a; 
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Sem\ Título-1.png');
+            background-size: cover;
+            background-position: center;
+            animation: kenBurnsZoom 15s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+            z-index: 2;
+        }
+        
+        /* --- NOVOS ESTILOS - GEMINI API --- */
+
+        /* Botão para chamar a API */
+        .gemini-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background-color: transparent;
+            border: 2px solid #00bfff; /* Cor azul padrão */
+            color: #00bfff;
+            font-family: 'Russo One', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .gemini-btn:hover {
+            background-color: #00bfff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+        }
+        
+        /* Cores específicas dos botões */
+        .gemini-btn.orange {
+            border-color: #ff4500;
+            color: #ff4500;
+        }
+        .gemini-btn.orange:hover {
+            background-color: #ff4500;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+        }
+        
+        .gemini-btn.red {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+        .gemini-btn.red:hover {
+            background-color: #dc2626;
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+        }
+
+        /* Animação do Loader (Spinner) */
+        .loader {
+            width: 32px;
+            height: 32px;
+            border: 4px solid #f0f0f0;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Caixa de Resultado do Gemini */
+        .gemini-result-box {
+            background-color: #111827; /* gray-900 */
+            border-left: 4px solid #00bfff; /* Cor azul padrão */
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 16px;
+            color: #d1d5db; /* gray-300 */
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .gemini-result-box.orange {
+            border-left-color: #ff4500;
+        }
+        .gemini-result-box.red {
+            border-left-color: #dc2626;
+        }
+        .gemini-result-box p:not(:last-child) {
+            margin-bottom: 8px;
+        }
+
+        /* --- FIM DOS NOVOS ESTILOS --- */
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Header (Logo e Navegação) -->
+    <header class="py-4 sticky-header">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <h1 class="font-heading text-2xl md:text-3xl text-glow-blue uppercase">
+                <a href="#hero" class="scroll-smooth">Upgrade Ninja</a>
+            </h1>
+            
+            <!-- Navegação (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#conceito" class="text-gray-300 hover:text-ninja-blue-400 font-heading tracking-wide transition-colors">Como Funciona</a>
+                <a href="#planos" class="text-gray-300 hover:text-ninja-blue-400 font-heading tracking-wide transition-colors">Planos</a>
+                <a href="#faq" class="text-gray-300 hover:text-ninja-blue-400 font-heading tracking-wide transition-colors">FAQ</a>
+                
+                <!-- CTA no Header -->
+                <a href="#planos" class="bg-ninja-blue-400 text-black font-heading uppercase text-sm tracking-wider py-2 px-5 rounded-lg transform transition-transform hover:scale-105 hover:bg-ninja-blue-600 hover:text-white">
+                    Ver Planos
+                </a>
+            </nav>
+
+            <!-- CTA (Mobile) -->
+            <div class="md:hidden">
+                <a href="#planos" class="bg-ninja-blue-400 text-black font-heading uppercase text-sm tracking-wider py-2 px-4 rounded-lg">
+                    Planos
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- [BLOCO 1: HERO] -->
+        <section id="hero" class="hero-banner text-center">
+            <div class="hero-background"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <h2 class="font-heading text-5xl md:text-7xl text-glow-blue uppercase">
+                    Upgrade Ninja
+                </h2>
+                <h3 class="font-heading text-2xl md:text-3xl text-white my-6 max-w-2xl mx-auto">
+                    O setup gamer que nunca fica obsoleto.
+                </h3>
+                <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-xl mx-auto">
+                    Tenha um PC de última geração com planos de assinatura de 24 meses e foco total na performance.
+                </p>
+                <a href="#planos" class="inline-block bg-ninja-blue-400 text-black font-heading uppercase tracking-wider py-4 px-10 rounded-lg text-lg transform transition-transform hover:scale-105 hover:bg-ninja-blue-600 hover:text-white">
+                    Conheça os Planos
+                </a>
+            </div>
+        </section>
+
+        <!-- [BLOCO 2: CONCEITO] -->
+        <section id="conceito" class="container mx-auto px-4 py-16 md:py-20 text-center">
+            <!-- ... Conteúdo do Bloco 2 ... -->
+            <h2 class="font-heading text-3xl md:text-4xl mb-6">O "iPhone para Sempre", agora para Gamers.</h2>
+            
+            <!-- Ícones do Processo -->
+            <div class="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-12 my-10">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-blue-400 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    </div>
+                    <span class="font-heading text-xl mt-3">1. ESCOLHA</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-orange-400 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <span class="font-heading text-xl mt-3">2. JOGUE</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-blue-400 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m-15.357-2A8.001 8.001 0 0019.418 15m0 0H15" /></svg>
+                    </div>
+                    <span class="font-heading text-xl mt-3">3. ATUALIZE</span>
+                </div>
+            </div>
+            
+            <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto">
+                O Upgrade Ninja é um modelo de assinatura revolucionário. Você escolhe sua máquina e, pelos próximos 24 meses, joga sem limites. Ao final do ciclo, você não fica preso a um hardware antigo. Você simplesmente devolve, renova o plano e recebe um PC novinho em folha, pronto para os próximos lançamentos. É o fim da desvalorização.
+            </p>
+        </section>
+        
+        <!-- [BLOCO 3: PLANOS] -->
+        <section id="planos" class="container mx-auto px-4 py-16 md:py-20">
+            <h2 class="font-heading text-3xl md:text-4xl text-center mb-12">Escolha sua Classe. Monte seu Ninja.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                
+                <!-- Plano 1: BÁSICO -->
+                <div class="bg-gray-950 p-6 rounded-lg border-2 border-gray-800 flex flex-col h-full plan-card plan-card-blue">
+                    <h3 class="font-heading text-3xl text-ninja-blue-400">Ninja Básico</h3>
+                    <!-- ... Conteúdo do Plano Básico ... -->
+                    <p class="text-gray-400 mt-2">A porta de entrada. Ideal para e-sports, uso doméstico e estudos.</p>
+                    
+                    <div class="my-6">
+                        <h4 class="font-heading text-lg uppercase tracking-wider text-gray-400 mb-3">Hardware</h4>
+                        <ul class="text-gray-300 space-y-1 pl-2">
+                            <li>- Processador Ryzen 5 5500</li>
+                            <li>- Placa Mãe A520</li>
+                            <li>- Placa de vídeo RX580</li>
+                            <li>- SSD 512GB Sata</li>
+                            <li>- Memoria Ram 16GB 3200MHZ</li>
+                            <li>- Fonte 650W 80 Plus</li>
+                            <li>- Air Cooler Box</li>
+                            <li>- Fans RGB - 4 uni</li>
+                            <li>- Gabinete Husky</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="my-6">
+                        <h4 class="font-heading text-lg uppercase tracking-wider text-gray-400 mb-3">Benefícios</h4>
+                        <ul class="text-gray-300 space-y-1">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Receba o computador montado</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Garantia de 24 meses</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Clube de cupons 5%</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span> Prime Ninja</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span> Frete Grátis</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span> Suporte técnico exclusivo</li>
+                        </ul>
+                    </div>
+
+                    <!-- === BOTÃO GEMINI ADICIONADO === -->
+                    <div class="my-6">
+                        <button class="gemini-btn" onclick="getGameSuggestion('basico', this)">
+                            ✨ O que posso jogar com este PC?
+                        </button>
+                        <div id="loading-basico" class="hidden text-center mt-4">
+                            <span class="loader"></span>
+                            <p class="text-sm text-gray-400 mt-2">Analisando performance...</p>
+                        </div>
+                        <div id="result-basico" class="hidden gemini-result-box"></div>
+                    </div>
+                    <!-- === FIM DO BOTÃO GEMINI === -->
+
+                    <div class="text-4xl font-heading my-6 text-white">24x R$100</div>
+                    
+                    <a href="#" class="mt-auto w-full text-center bg-ninja-blue-600 text-white font-heading uppercase tracking-wider py-3 px-6 rounded-lg transform transition-transform hover:scale-105 hover:bg-ninja-blue-400">
+                        Selecionar
+                    </a>
+                </div>
+
+                <!-- Plano 2: INTERMEDIÁRIO -->
+                <div class="bg-gray-950 p-6 rounded-lg border-2 border-gray-800 flex flex-col h-full plan-card plan-card-orange">
+                    <h3 class="font-heading text-4xl text-ninja-orange-400">Ninja Intermediário</h3>
+                    <!-- ... Conteúdo do Plano Intermediário ... -->
+                    <p class="text-gray-400 mt-2">O equilíbrio perfeito para o gamer casual e streamer. Roda AAA em alta qualidade.</p>
+                    <p class="text-sm text-gray-400 mb-4">(Valor base do equipamento: R$ 6.000)</p>
+                    
+                    <div class="my-6">
+                        <h4 class="font-heading text-lg uppercase tracking-wider text-gray-400 mb-3">Hardware</h4>
+                        <ul class="text-gray-300 space-y-1 pl-2">
+                            <li>- Processador Ryzen 5 7600X</li>
+                            <li>- Placa Mãe MSI B650M Gaming Plus</li>
+                            <li>- Placa de vídeo RTX 5060 Ti</li>
+                            <li>- SSD 1TB M.2</li>
+                            <li>- Memória Ram 16GB 5600MHz</li>
+                            <li>- WC Husky Freezy</li>
+                            <li>- Fonte Husky Sledger 850W</li>
+                            <li>- Gabinete Husky Dome 900, 10x fan</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="my-6">
+                        <h4 class="font-heading text-lg uppercase tracking-wider text-gray-400 mb-3">Benefícios</h4>
+                        <ul class="text-gray-300 space-y-1">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Receba o computador montado</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Garantia de 24 meses</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Clube de cupons 10%</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Prime Ninja</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span> Frete Grátis</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span> Suporte técnico exclusivo</li>
+                        </ul>
+                    </div>
+
+                    <!-- === BOTÃO GEMINI ADICIONADO === -->
+                    <div class="my-6">
+                        <button class="gemini-btn orange" onclick="getGameSuggestion('intermediario', this)">
+                            ✨ O que posso jogar com este PC?
+                        </button>
+                        <div id="loading-intermediario" class="hidden text-center mt-4">
+                            <span class="loader" style="border-top-color: #ff4500;"></span>
+                            <p class="text-sm text-gray-400 mt-2">Analisando performance...</p>
+                        </div>
+                        <div id="result-intermediario" class="hidden gemini-result-box orange"></div>
+                    </div>
+                    <!-- === FIM DO BOTÃO GEMINI === -->
+                    
+                    <div class="text-5xl font-heading my-8 text-white">24x R$250</div>
+                    
+                    <a href="#" class="mt-auto w-full text-center bg-ninja-orange-500 text-white font-heading uppercase tracking-wider py-4 px-6 rounded-lg transform transition-transform hover:scale-105 hover:bg-ninja-orange-600">
+                        Escolher Intermediário
+                    </a>
+                </div>
+
+                <!-- Plano 3: PRO -->
+                <div class="bg-gray-950 p-6 rounded-lg border-2 border-gray-800 flex flex-col h-full plan-card plan-card-red">
+                    <h3 class="font-heading text-3xl text-ninja-red-500">Ninja Pro</h3>
+                    <!-- ... Conteúdo do Plano Pro ... -->
+                    <p class="text-gray-400 mt-2">A máquina definitiva para pro-players e criadores de conteúdo. 4K e Ray Tracing no máximo.</p>
+                    <p class="text-sm text-gray-400 mb-4">(Valor base do equipamento: R$ 12.000)</p>
+                    
+                    <div class="my-6">
+                        <h4 class="font-heading text-lg uppercase tracking-wider text-gray-400 mb-3">Hardware</h4>
+                        <ul class="text-gray-300 space-y-1 pl-2">
+                            <li>- Processador Ryzen 7 7800X3D</li>
+                            <li>- Placa Mãe ASUS B650M-E</li>
+                            <li>- Placa de vídeo RTX 5070</li>
+                            <li>- SSD Kingston Fury 1TB</li>
+                            <li>- Memoria Ram XPG 32GB 6000MHz</li>
+                            <li>- Fonte Husky 850W 80 Gold</li>
+                            <li>- WC Gigabyte Gaming 360</li>
+                            <li>- Gabinete Husky Dome GN950, 10x fan</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="my-6">
+                        <h4 class="font-heading text-lg uppercase tracking-wider text-gray-400 mb-3">Benefícios</h4>
+                        <ul class="text-gray-300 space-y-1">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Receba o computador montado</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Garantia de 24 meses</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Clube de cupons 10%</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Prime Ninja</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Frete Grátis</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Suporte técnico exclusivo</li>
+                        </ul>
+                    </div>
+
+                    <!-- === BOTÃO GEMINI ADICIONADO === -->
+                    <div class="my-6">
+                        <button class="gemini-btn red" onclick="getGameSuggestion('pro', this)">
+                            ✨ O que posso jogar com este PC?
+                        </button>
+                        <div id="loading-pro" class="hidden text-center mt-4">
+                            <span class="loader" style="border-top-color: #dc2626;"></span>
+                            <p class="text-sm text-gray-400 mt-2">Analisando performance...</p>
+                        </div>
+                        <div id="result-pro" class="hidden gemini-result-box red"></div>
+                    </div>
+                    <!-- === FIM DO BOTÃO GEMINI === -->
+                    
+                    <div class="text-4xl font-heading my-6 text-white">24x R$500</div>
+                    
+                    <a href="#" class="mt-auto w-full text-center bg-ninja-red-600 text-white font-heading uppercase tracking-wider py-3 px-6 rounded-lg transform transition-transform hover:scale-105 hover:bg-ninja-red-500">
+                        Selecionar
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- [BLOCO 4: CONDIÇÕES E PAGAMENTO] -->
+        <section id="pagamento" class="container mx-auto px-4 py-16 md:py-20 text-center">
+            <!-- ... Conteúdo do Bloco 4 ... -->
+            <h2 class="font-heading text-3xl md:text-4xl mb-6">Assinatura Descomplicada. Sem Surpresas.</h2>
+            <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto mb-10">
+                Facilidade do início ao fim. Após a confirmação do pagamento, seu PC montado, testado e com Nota Fiscal chega em até 30 dias.
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6 md:gap-8">
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center w-full md:w-1/4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-blue-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                    <h4 class="font-heading text-xl">Recorrente no Cartão</h4>
+                    <p class="text-gray-400 text-sm mt-1">24x sem comprometer seu limite.</p>
+                </div>
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center w-full md:w-1/4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-orange-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 6v1m-6-6H4m16 0h2M12 8v4l3 3m6-3h-2M4 12H2m10 6v-1m-6-6H4M12 20v1m6-11h-2M4 12h2m8-8v1m-6 6H4m7 11v-1m6-6h-2M7 4V3M4 7H3m1-4v1m13 13v1m3-4h1m-1-13v-1m-3 4h-1m-3 13v1M4 7h1" /></svg>
+                    <h4 class="font-heading text-xl">Pix Parcelado</h4>
+                    <p class="text-gray-400 text-sm mt-1">(Consulte condições)</p>
+                </div>
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center w-full md:w-1/4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-blue-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    <h4 class="font-heading text-xl">Pix à Vista</h4>
+                    <p class="text-gray-400 text-sm mt-1">com desconto especial.</p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- [BLOCO 5: PÓS-ASSINATURA] -->
+        <section id="pos-assinatura" class="container mx-auto px-4 py-16 md:py-20 text-center">
+            <!-- ... Conteúdo do Bloco 5 ... -->
+            <h2 class="font-heading text-3xl md:text-4xl mb-6">E depois dos 24 meses? O controle é seu.</h2>
+            <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto mb-10">
+                Quando seu contrato inicial terminar, você decide o próximo passo na sua jornada:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                    <h4 class="font-heading text-xl text-ninja-blue-400">Renovar e Fazer Upgrade</h4>
+                    <p class="text-gray-400 mt-2 text-sm">Devolva seu PC atual e receba um da nova geração.</p>
+                </div>
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m-15.357-2A8.001 8.001 0 0019.418 15m0 0H15" /></svg>
+                    <h4 class="font-heading text-xl">Renovar e Manter</h4>
+                    <p class="text-gray-400 mt-2 text-sm">Continue com seu setup atualizado por um novo período.</p>
+                </div>
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l-4 4m0 0l4 4m-4-4h15a2 2 0 002-2V6a2 2 0 00-2-2H4" /></svg>
+                    <h4 class="font-heading text-xl">Devolver o Equipamento</h4>
+                    <p class="text-gray-400 mt-2 text-sm">Encerre sua assinatura e devolva o PC.</p>
+                </div>
+                
+                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9v8M17 17l-5-5M17 17h-8" /></svg>
+                    <h4 class="font-heading text-xl">Ficar com o PC</h4>
+                    <p class="text-gray-400 mt-2 text-sm">Consulte as condições para quitar o valor residual.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- [BLOCO 6: FAQ] -->
+        <section id="faq" class="container mx-auto px-4 py-16 md:py-20 max-w-4xl">
+            <!-- ... Conteúdo do Bloco 6 ... -->
+            <h2 class="font-heading text-3xl md:text-4xl text-center mb-12">FAQ - Central de Dúvidas Ninja</h2>
+            
+            <div class="space-y-4">
+                
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-gray-950 rounded-lg border border-gray-800">
+                    <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                        <span class="font-heading text-lg md:text-xl">O PC é meu durante a assinatura?</span>
+                        <svg class="faq-icon w-6 h-6 text-ninja-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300">O equipamento fica sob sua responsabilidade (modelo de assinatura/locação) durante os 24 meses. Ao final, você escolhe uma das opções de renovação, devolução ou quitação.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-gray-950 rounded-lg border border-gray-800">
+                    <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                        <span class="font-heading text-lg md:text-xl">O que acontece se uma peça quebrar?</span>
+                        <svg class="faq-icon w-6 h-6 text-ninja-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300">Nossos planos incluem garantia total durante os 24 meses. Basta abrir um chamado no nosso SAC que cuidamos da manutenção ou troca.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-gray-950 rounded-lg border border-gray-800">
+                    <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                        <span class="font-heading text-lg md:text-xl">Posso fazer upgrade de peças por conta própria?</span>
+                        <svg class="faq-icon w-6 h-6 text-ninja-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-gray-300">Para manter a integridade da garantia e do modelo de assinatura, upgrades ou modificações de hardware só podem ser feitos através do Upgrade Ninja no momento da renovação.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- [BLOCO 7: RODAPÉ] -->
+    <footer class="border-t border-gray-800 mt-16 md:mt-20 py-10">
+        <!-- ... Conteúdo do Rodapé ... -->
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#planos" class="hover:text-ninja-blue-400 transition-colors">Planos</a>
+                <a href="#conceito" class="hover:text-ninja-blue-400 transition-colors">Como Funciona</a>
+                <a href="#faq" class="hover:text-ninja-blue-400 transition-colors">SAC</a>
+            </div>
+            <p class="text-xs max-w-3xl mx-auto">
+                [Atenção: Esta é uma página demo (versão 1.0) criada para apresentação interna e validação do projeto Upgrade Ninja. Todos os valores, especificações e condições apresentados são ilustrativos e podem sofrer alterações na versão final do produto. Termos e Condições completos (placeholder) clique aqui.]
+            </p>
+            <p class="mt-4 text-sm">Upgrade Ninja &copy; 2025.</p>
+        </div>
+    </footer>
+    
+    <!-- === JAVASCRIPT ADICIONADO === -->
+    <script>
+        // Lógica do FAQ (Acordeão)
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const button = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = button.querySelector('.faq-icon');
+
+                button.addEventListener('click', () => {
+                    const isOpen = answer.classList.contains('open');
+                    
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        ans.classList.remove('open');
+                        ans.style.maxHeight = null;
+                    });
+                    document.querySelectorAll('.faq-icon').forEach(ic => {
+                        ic.classList.remove('rotate-180');
+                    });
+
+                    if (!isOpen) {
+                        answer.classList.add('open');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.classList.add('rotate-180');
+                    }
+                });
+            });
+        });
+
+        // --- LÓGICA DA API GEMINI ---
+
+        const API_KEY = ""; // Deixe em branco, será fornecido pelo ambiente
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+        
+        // Definição dos prompts de hardware para cada plano
+        const hardwarePrompts = {
+            basico: "Hardware: Processador Ryzen 5 5500, Placa de vídeo RX580, 16GB RAM 3200MHZ, SSD 512GB Sata.",
+            intermediario: "Hardware: Processador Ryzen 5 7600X, Placa de vídeo RTX 5060 Ti, 16GB RAM 5600MHz, SSD 1TB M.2.",
+            pro: "Hardware: Processador Ryzen 7 7800X3D, Placa de vídeo RTX 5070, 32GB RAM 6000MHz, SSD Kingston Fury 1TB."
+        };
+
+        // Função principal chamada pelo botão
+        function getGameSuggestion(planName, buttonElement) {
+            const hardwarePrompt = hardwarePrompts[planName];
+            const loadingDiv = document.getElementById(`loading-${planName}`);
+            const resultDiv = document.getElementById(`result-${planName}`);
+
+            // Oculta o botão e o resultado anterior, mostra o loader
+            buttonElement.style.display = 'none';
+            resultDiv.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+
+            // Chama a função da API
+            callGeminiAPI(hardwarePrompt, planName)
+                .then(text => {
+                    // Sucesso: mostra o resultado
+                    resultDiv.innerText = text;
+                    resultDiv.classList.remove('hidden');
+                })
+                .catch(error => {
+                    // Erro: mostra uma mensagem de erro e re-exibe o botão
+                    console.error(error);
+                    resultDiv.innerText = "Desculpe, não foi possível gerar a análise. Tente novamente.";
+                    resultDiv.classList.remove('hidden');
+                    buttonElement.style.display = 'inline-block';
+                })
+                .finally(() => {
+                    // Sempre oculta o loader
+                    loadingDiv.classList.add('hidden');
+                });
+        }
+
+        // Função para chamar a API com retry (exponential backoff)
+        async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status === 429 || response.status >= 500) {
+                        // Throttling ou erro de servidor, espera e tenta de novo
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+                    if (!response.ok) {
+                         throw new Error(`HTTP error: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.warn(`Attempt ${i + 1} failed. Retrying in ${delay}ms...`);
+                    if (i < retries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    } else {
+                        throw error; // Lança o erro após a última tentativa
+                    }
+                }
+            }
+        }
+
+        // Função async que monta e envia a requisição para a API Gemini
+        async function callGeminiAPI(hardwarePrompt, planName) {
+            const systemPrompt = "Você é um especialista em hardware de PC gamer. Seu tom é animador, confiável e direto (linguagem gamer, mas sem exageros). Dado uma lista de hardware, gere uma breve análise (cerca de 2-3 frases curtas) de quais tipos de jogos e qual performance (ex: 1080p, 1440p, 4K, 60fps+, high/ultra) o usuário pode esperar. Foque nos benefícios reais para o jogador.";
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: hardwarePrompt }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            };
+
+            try {
+                const result = await fetchWithRetry(API_URL, options);
+                
+                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0].text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("Resposta da API inválida ou vazia.");
+                }
+            } catch (error) {
+                console.error("Erro ao chamar a API Gemini:", error);
+                throw error; // Propaga o erro para o handler .catch()
+            }
+        }
+    </script>
+    
+</body>
+</html>
