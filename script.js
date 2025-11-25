@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- LÓGICA DA API GEMINI ---
 
-const API_KEY = ""; // Deixe em branco, será fornecido pelo ambiente
+const API_KEY = "AIzaSyCkHNTPJ72tXsNRd47QFu8i0Z_7vQ39vpw";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
 
 // Definição dos prompts de hardware para cada plano
@@ -128,8 +128,14 @@ async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
 
 // Função async que monta e envia a requisição para a API Gemini
 async function callGeminiAPI(hardwarePrompt, planName) {
-    const systemPrompt = "Você é um especialista em hardware de PC gamer. Seu tom é animador, confiável e direto (linguagem gamer, mas sem exageros). Dado uma lista de hardware, gere uma breve análise (cerca de 2-3 frases curtas) de quais tipos de jogos e qual performance (ex: 1080p, 1440p, 4K, 60fps+, high/ultra) o usuário pode esperar. Foque nos benefícios reais para o jogador.";
-
+    const systemPrompt = `
+        Role: Especialista Hardware Gamer.
+        Estilo: Direto, técnico mas acessível (gírias funcionais: 'tankar', 'liso', 'gargalo', 'stutter'). Sem exageros.
+        Tarefa: Analise a lista de hardware fornecida.
+        Saída: 2-3 frases curtas focadas na experiência real.
+        Requisito: Cite estimativa de Resolução/FPS/Qualidade (ex: 1440p Ultra 60fps) e gênero de jogo ideal.
+        Regra: Sem saudações ou preâmbulos. Baseie-se em benchmarks recentes.
+        `;
     const payload = {
         contents: [{
             parts: [{
