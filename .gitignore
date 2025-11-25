@@ -1,0 +1,7 @@
+# .gitignore
+node_modules/
+__pycache__/
+.DS_Store
+
+# Ignorar variáveis de ambiente
+.env

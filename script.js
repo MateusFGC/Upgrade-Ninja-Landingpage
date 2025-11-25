@@ -13,7 +13,7 @@ tailwind.config = {
                 },
                 'ninja-orange': {
                     '400': '#ff4500', // OrangeRed
-                    '500': '#ff4500',
+                    '500': '#F17A28',
                     '600': '#e63e00'
                 },
                 'ninja-dark': '#0a0a0a', // Quase preto
