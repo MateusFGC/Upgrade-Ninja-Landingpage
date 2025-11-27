@@ -13,14 +13,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
-   
+       
+    <!-- Configuração Customizada do Tailwind -->
     <script>
-    
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'heading': ['Russo One', 'sans-serif']
+                    },
+                    colors: {
+                        'ninja-blue': {
+                            '400': '#00bfff', // DeepSkyBlue
+                            '600': '#009acd'
+                        },
+                        'ninja-orange': {
+                            '400': '#ff4500', // OrangeRed
+                            '500': '#F17A28',
+                            '600': '#e63e00'
+                        },
+                        'ninja-dark': '#0a0a0a', // Quase preto
+                        'ninja-red': { 
+                            '500': '#dc2626', // red-600
+                            '600': '#b91c1c'  // red-700
+                        }
+                    }
+                }
+            }
+        }
     </script>
-    
-
-   
 </head>
 <body class="bg-black text-white">
 
@@ -29,8 +51,10 @@
         <div class="container mx-auto px-4 flex justify-between items-center">
             
             <!-- Logo -->
-            <span class="font-heading text-2xl md:text-3xl text-glow-orange uppercase">
-                <a href="#hero" class="font-heading scroll-smooth">Upgrade Ninja</a>
+            <span class="font-heading text-2xl md:text-3xl text-glow-orange ">
+                <a href="#hero" class="font-heading scroll-smooth">
+                    <img src="LOGO-BLACK-FRIDAY.png" class="w-[100px] bg-glow-orange" alt="">
+                </a>
             </span>
             
             <!-- Navegação (Desktop) -->
@@ -79,35 +103,46 @@
         </section>
 
         <!-- [BLOCO 2: CONCEITO] -->
-        <section id="conceito" class="container mx-auto px-4 py-16 md:py-20 text-center ">
-            <!-- ... Conteúdo do Bloco 2 ... -->
-            <h2 class="font-heading text-3xl md:text-4xl mb-6 text-ninja-orange-600">Se liga nas opções e vem pro game:</h2>
+        <section id="conceito" class="relative min-h-[100vh] flex items-end overflow-hidden">
             
-            <!-- Ícones do Processo -->
-            <div class="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-12 my-10">
-                <div class="flex flex-col items-center">
-                    <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-blue-400 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
-                    </div>
-                    <span class="font-heading text-xl mt-3">1. ESCOLHA</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-orange-400 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
-                    <span class="font-heading text-xl mt-3">2. JOGUE</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-blue-400 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m-15.357-2A8.001 8.001 0 0019.418 15m0 0H15" /></svg>
-                    </div>
-                    <span class="font-heading text-xl mt-3">3. ATUALIZE</span>
-                </div>
+            <!-- 1. Imagem de Fundo e Overlay -->
+            <div class="absolute inset-0 z-0">
+                <!-- Imagem ocupando tudo -->
+                <img src="NINJA-PRIME-01.png" alt="Ninja Background" class="w-full h-full object-cover object-top">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
             </div>
-            
-            <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto">
-                O Upgrade Ninja é um modelo de assinatura revolucionário. Você escolhe sua máquina e, pelos próximos 24 meses, joga sem limites. Ao final do ciclo, você não fica preso a um hardware antigo. Você simplesmente devolve, renova o plano e recebe um kit para realizar o upgrade da sua máquina. E ficar preparado para os próximos lançamentos! É o fim da desvalorização.
-            </p>
+
+
+            <!-- Container do Conteúdo (Fica na frente - z-10) -->
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h2 class="font-heading text-3xl md:text-4xl mb-6">Se liga nas opções e vem pro game:</h2>
+                
+                <!-- Ícones do Processo -->
+                <div class="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-12 my-10 ">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-blue-400 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,191,255,0.3)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                        </div>
+                        <span class="font-heading text-xl mt-3 text-glow-blue">1. ESCOLHA</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-orange-400 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,69,0,0.3)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <span class="font-heading text-xl mt-3 text-glow-orange">2. JOGUE</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 bg-gray-900 border-2 border-ninja-blue-400 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,191,255,0.3)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m-15.357-2A8.001 8.001 0 0019.418 15m0 0H15" /></svg>
+                        </div>
+                        <span class="font-heading text-xl mt-3 text-glow-blue">3. ATUALIZE</span>
+                    </div>
+                </div>
+                
+                <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto">
+                    O Upgrade Ninja é um modelo de assinatura revolucionário. Você escolhe sua máquina e, pelos próximos 24 meses, joga sem limites. Ao final do ciclo, você não fica preso a um hardware antigo. Você simplesmente devolve, renova o plano e recebe um PC novinho em folha, pronto para os próximos lançamentos. É o fim da desvalorização.
+                </p>
+            </div>
         </section>
         
         <!-- [BLOCO 3: PLANOS] -->
@@ -166,14 +201,14 @@
 
                     <div class="text-4xl font-heading my-6 text-white">24x R$100</div>
                     
-                    <a href="#" class="mt-auto w-full text-center bg-ninja-blue-600 text-white font-heading uppercase tracking-wider py-3 px-6 rounded-lg transform transition-transform hover:scale-105 hover:bg-ninja-orange-400">
+                    <a href="#" class="mt-auto w-full text-center bg-ninja-blue-600 text-white font-heading uppercase tracking-wider py-3 px-6 rounded-lg transform transition-transform hover:scale-105 hover:bg-ninja-blue-400">
                         Selecionar
                     </a>
                 </div>
 
                 <!-- Plano 2: INTERMEDIÁRIO -->
                 <div class="bg-gray-950 p-6 rounded-lg border-2 border-gray-800 flex flex-col h-full plan-card plan-card-orange">
-                    <h3 class="font-heading text-3xl text-ninja-orange-400">Intermediário</h3>
+                    <h3 class="font-heading text-3xl text-ninja-orange-500">Intermediário</h3>
                     <!-- ... Conteúdo do Plano Intermediário ... -->
                     <p class="text-gray-400 mt-2">O equilíbrio perfeito para o gamer casual e streamer. Roda AAA em alta qualidade.</p>
                     <p class="text-sm text-gray-400 mb-4">(Valor base do equipamento: R$ 6.000)</p>
@@ -283,35 +318,72 @@
         </section>
 
         <!-- [BLOCO 4: CONDIÇÕES E PAGAMENTO] -->
-        <section id="pagamento" class="container mx-auto px-4 py-16 md:py-20 text-center">
-            <!-- ... Conteúdo do Bloco 4 ... -->
-            <h2 class="font-heading text-3xl md:text-4xl mb-6 text-ninja-orange-600">Assinatura Descomplicada. Sem Surpresas.</h2>
-            <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto mb-10">
-                Facilidade do início ao fim. Após a confirmação do pagamento, seu PC montado, testado e com Nota Fiscal chega em até 30 dias.
-            </p>
+       <section id="pagamento" class="py-16 md:py-20 relative overflow-hidden">
             
-            <div class="flex flex-col md:flex-row justify-center gap-6 md:gap-8">
+            <div class="container mx-auto px-4 text-center relative z-10">
+                <h2 class="font-heading text-3xl md:text-4xl mb-6 text-ninja-orange-400">Assinatura Descomplicada. Sem Surpresas.</h2>
+                <p class="text-md md:text-lg text-gray-300 max-w-3xl mx-auto mb-10">
+                    Facilidade do início ao fim. Após a confirmação do pagamento, seu PC montado, testado e com Nota Fiscal chega em até 30 dias.
+                </p>
                 
-                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center w-full md:w-1/4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-blue-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
-                    <h4 class="font-heading text-xl">Recorrente no Cartão</h4>
-                    <p class="text-gray-400 text-sm mt-1">24x sem comprometer seu limite.</p>
+                <!-- WRAPPER RELATIVO PARA ANCORAR O NINJA AO CARD -->
+                <div class="relative max-w-4xl mx-auto flex justify-center items-center">
+                    
+                    <!-- IMAGEM DO NINJA (POSICIONAMENTO MELHORADO) -->
+                    <!-- No Mobile: Absolute, centralizado atrás, opacidade baixa e blur -->
+                    <!-- No Desktop: Absolute, deslocado para direita (-right-32), opacidade total, sem blur -->
+                    <img src="ninja-cartao.png" 
+                         alt="Ninja com Cartão" 
+                         class="hidden md:block absolute 
+                                w-[200px] lg:w-[200px] 
+                                object-contain 
+                                z-0 
+                                pointer-events-none
+                                bottom-[-40px] right-[-230px]
+                                 opacity-25 ">
+
+                     <img src="ninja-cartao-2.png" 
+                         alt="Ninja com Cartão" 
+                         class="hidden md:block absolute 
+                                w-[200px] lg:w-[200px] 
+                                object-contain 
+                                z-0 
+                                pointer-events-none
+                                bottom-[-40px] right-[930px]
+                                opacity-25 ">
+
+                    <!-- CARD DE DESTAQUE (Fica na frente - z-10) -->
+                    <div class="relative z-10 bg-gray-950/95 backdrop-blur-md p-8 md:p-10 rounded-2xl border-2 border-ninja-blue-400 flex flex-col md:flex-row items-center text-center md:text-left w-full shadow-[0_0_30px_rgba(0,191,255,0.15)] hover:shadow-[0_0_40px_rgba(0,191,255,0.3)] transition-shadow duration-300">
+                        
+                        <!-- Ícone Grande à Esquerda -->
+                        <div class="mb-6 md:mb-0 md:mr-10 flex-shrink-0">
+                            <div class="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center border border-gray-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Texto Explicativo à Direita -->
+                        <div class="flex-grow">
+                            <h4 class="font-heading text-2xl md:text-3xl text-white mb-3">Pagamento Recorrente no Cartão</h4>
+                            <p class="text-gray-300 text-lg mb-4">
+                                A melhor forma de assinar. O valor da mensalidade é descontado mês a mês, 
+                                <span class="text-ninja-blue-400 font-bold">sem comprometer o limite total</span> do seu cartão de crédito.
+                            </p>
+                            <div class="inline-block bg-ninja-blue-600/20 text-ninja-blue-400 px-4 py-2 rounded-lg font-heading text-sm uppercase tracking-wide border border-ninja-blue-600/50">
+                                Em até 24x Sem Juros
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+                    
                 </div>
-                
-            <!--     <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center w-full md:w-1/4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-orange-400 mb-4" fill="currentColor" viewBox="0 0 640 640" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M306.4 356.5C311.8 351.1 321.1 351.1 326.5 356.5L403.5 433.5C417.7 447.7 436.6 455.5 456.6 455.5L471.7 455.5L374.6 552.6C344.3 582.1 295.1 582.1 264.8 552.6L167.3 455.2L176.6 455.2C196.6 455.2 215.5 447.4 229.7 433.2L306.4 356.5zM326.5 282.9C320.1 288.4 311.9 288.5 306.4 282.9L229.7 206.2C215.5 191.1 196.6 184.2 176.6 184.2L167.3 184.2L264.7 86.8C295.1 56.5 344.3 56.5 374.6 86.8L471.8 183.9L456.6 183.9C436.6 183.9 417.7 191.7 403.5 205.9L326.5 282.9zM176.6 206.7C190.4 206.7 203.1 212.3 213.7 222.1L290.4 298.8C297.6 305.1 307 309.6 316.5 309.6C325.9 309.6 335.3 305.1 342.5 298.8L419.5 221.8C429.3 212.1 442.8 206.5 456.6 206.5L494.3 206.5L552.6 264.8C582.9 295.1 582.9 344.3 552.6 374.6L494.3 432.9L456.6 432.9C442.8 432.9 429.3 427.3 419.5 417.5L342.5 340.5C328.6 326.6 304.3 326.6 290.4 340.6L213.7 417.2C203.1 427 190.4 432.6 176.6 432.6L144.8 432.6L86.8 374.6C56.5 344.3 56.5 295.1 86.8 264.8L144.8 206.7L176.6 206.7z"/></svg>
-                    <h4 class="font-heading text-xl">Pix Parcelado</h4>
-                    <p class="text-gray-400 text-sm mt-1">(Consulte condições)</p>
-                </div>
-                
-                <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center w-full md:w-1/4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ninja-blue-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    <h4 class="font-heading text-xl">Pix à Vista</h4>
-                    <p class="text-gray-400 text-sm mt-1">com desconto especial.</p>
-                </div> -->
-                
             </div>
         </section>
+        
         
         <!-- [BLOCO 5: PÓS-ASSINATURA] -->
         <section id="pos-assinatura" class="container mx-auto px-4 py-16 md:py-20 text-center">
@@ -324,8 +396,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
                 
                 <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 flex flex-col items-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-orange-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-                    <h4 class="font-heading text-xl text-ninja-orange-400">Renove o seu plano e recebe um Kit Upgrade </h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ninja-blue-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                    <h4 class="font-heading text-xl text-ninja-blue-400">Renove o seu plano e recebe um Kit Upgrade </h4>
                     <p class="text-gray-400 mt-2 text-sm">Devolva seu PC atual e receba um da nova geração.</p>
                 </div>
                 

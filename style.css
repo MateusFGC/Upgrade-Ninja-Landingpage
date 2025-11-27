@@ -30,6 +30,14 @@
     .text-glow-orange {
         text-shadow: 0 0 8px #ff4500, 0 0 12px #ff4500;
     }
+    .text-glow-white {
+        text-shadow: 0 0 5px #f1f1f1, 0 0 1px #ffffff;
+    }
+
+    .bg-glow-orange {
+        filter: drop-shadow(-2px 5px 5px #ff4500);
+    }
+    
 
     /* --- ESTILOS DOS CARDS --- */
 
@@ -144,8 +152,11 @@
         background-image: url('UPGRADE-NINJA.jpg');
         background-size: cover;
         background-position: center;
-        animation: kenBurnsZoom 15s infinite alternate ease-in-out;
+        animation: kenBurnsZoom 3s infinite alternate ease-in-out;
         z-index: 1;
+    }
+    .animate-zoom{
+        animation: kenBurnsZoom 1s infinite alternate ease-in-out;
     }
     .teste{
         background: linear-gradient(rgba(0, 0, 0, 0.2) 15.1%, rgba(233, 84, 0, 0.2) 100%), rgb(29, 29, 29);
@@ -260,5 +271,21 @@
     .gemini-result-box p:not(:last-child) {
         margin-bottom: 8px;
     }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+     .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Delays para as animações não ficarem sincronizadas */
+        .delay-0 { animation-delay: 0s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-2000 { animation-delay: 2s; }
+        .delay-3000 { animation-delay: 3s; }
 
     /* --- FIM DOS NOVOS ESTILOS --- */

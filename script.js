@@ -1,33 +1,3 @@
-/*   Configuração Customizada do Tailwind */
-tailwind.config = {
-    theme: {
-        extend: {
-            fontFamily: {
-                'sans': ['Inter', 'sans-serif'],
-                'heading': ['Russo One', 'sans-serif']
-            },
-            colors: {
-                'ninja-blue': {
-                    '400': '#00bfff', // DeepSkyBlue
-                    '600': '#009acd'
-                },
-                'ninja-orange': {
-                    '400': '#ff4500', // OrangeRed
-                    '500': '#F17A28',
-                    '600': '#e63e00'
-                },
-                'ninja-dark': '#0a0a0a', // Quase preto
-                'ninja-red': {
-                    '500': '#dc2626', // red-600
-                    '600': '#b91c1c' // red-700
-                }
-            }
-        }
-    }
-}
-
-
-
 
 // Lógica do FAQ (Acordeão)
 document.addEventListener('DOMContentLoaded', () => {
