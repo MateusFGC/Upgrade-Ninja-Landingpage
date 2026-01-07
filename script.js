@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- LÓGICA DA API GEMINI ---
 
-const API_KEY = "AIzaSyCkHNTPJ72tXsNRd47QFu8i0Z_7vQ39vpw";
+const API_KEY = "AIzaSyDxAbt3aldfWGpenQ89uD0OAWuOT8GkgkY";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
 
 // Definição dos prompts de hardware para cada plano
